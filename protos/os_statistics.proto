@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package SpeechproEMO;
+
+import "google/protobuf/empty.proto";
+
+service OSStatisticsService {
+  rpc StartMonitoringService(PID) returns (google.protobuf.Empty) {}
+  rpc GetMachineName(google.protobuf.Empty) returns (MachineName) {}
+  rpc GetStatistics(google.protobuf.Empty) returns (ServerServiceStatistics) {}
+}
+
+message MachineName {
+    string name = 1;
+}
+
+message PID {
+	uint32 pid = 1;
+}
+
+message ServerServiceStatistics {
+    CPUInfo cpu = 1;
+	MemoryUsage memory = 2;
+	ProcessInfo process_info = 3;
+}
+
+message CPUInfo {
+    float total_cpu_usage = 1;
+    repeated float cpu_usage_per_core = 2;
+}
+
+message MemoryUsage {
+    float total = 1;
+    float available = 2;
+    float used = 3;
+    float percentage = 4;
+}
+
+message ProcessInfo {
+	float cpu_percent = 1;
+	float rss = 2;
+	float vms = 3;
+	float uss = 4;
+	float pss = 5;
+	float memory_percent_rss = 6;
+	float memory_percent_vms = 7;
+    float memory_percent_uss = 8;
+	float memory_percent_pss = 9;
+}
